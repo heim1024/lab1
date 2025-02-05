@@ -1,6 +1,8 @@
 package Cars;
 
+import javax.swing.text.Position;
 import java.awt.*;
+
 
 public abstract class Car implements Movable{
     private int nrDoors; // Number of doors on the Cars.car
@@ -17,15 +19,14 @@ public abstract class Car implements Movable{
     public enum Direction {
         forward, right, left
     }
+    Pair<Integer, Integer> Pos = new List(20);
 
-    public Car(int nrDoors, int enginePower, Color color, String modelName, double startX, double startY, Direction startDir){
+    public Car(int nrDoors, int enginePower, Color color, String modelName, Pos(double x, double y), Direction startDir){
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
         this.modelName = modelName;
         this.currentSpeed = 0;
-        this.x = startX;
-        this.y = startY;
         this.direction = startDir;
     }
 
@@ -39,12 +40,30 @@ public abstract class Car implements Movable{
     public double getX() {return x;}
     public double getY() {return y;}
 
+
+
+    public void avlasta(int length){
+        if(length <= 60 && length >= 0){
+            y -= length;
+        }
+        else{
+            System.out.println("input number between 0 and 60");
+        }
+    }
+
+
+
+
     public Direction getDirection() {return direction;}
 
     public String getModelname(){return modelName;}
 
     public Color getColor(){return color;}
     public void setColor(Color clr){color = clr;}
+
+    public boolean isMoving(){
+        return currentSpeed > 0;
+    }
 
     public void startEngine(){
         currentSpeed = 0.1;
@@ -116,5 +135,7 @@ public abstract class Car implements Movable{
         x += currentSpeed;
         direction = Direction.right;
     }
+
+
 
 }
