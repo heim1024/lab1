@@ -5,29 +5,31 @@ import java.awt.*;
 
 
 public abstract class Car implements Movable{
-    private int nrDoors; // Number of doors on the Cars.car
-    private int enginePower; // Engine power of the Cars.car
+    private final int nrDoors; // Number of doors on the Cars.car
+    private final int enginePower; // Engine power of the Cars.car
+    private final String modelName; // The Cars.car model name
+    private boolean engineOn = false;
     private double currentSpeed; // The current speed of the Cars.car
+    public double x, y; // Position coordinates
     private Color color; // Color of the Cars.car
-    private String modelName; // The Cars.car model name
-    private double x, y; // Position coordinates
     private Direction direction; // Direction the car is facing
-    public boolean engineOn = false;
 
-    public boolean turboOn;
+    public abstract double speedFactor();
 
     public enum Direction {
         forward, right, left
     }
-    Pair<Integer, Integer> Pos = new List(20);
 
-    public Car(int nrDoors, int enginePower, Color color, String modelName, Pos(double x, double y), Direction startDir){
+
+    public Car(int nrDoors, int enginePower, Color color, String modelName, double x, double y, Direction startDir){
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
         this.modelName = modelName;
         this.currentSpeed = 0;
         this.direction = startDir;
+        this.x = x;
+        this.y = y;
     }
 
     public int getNrDoors(){
@@ -36,11 +38,21 @@ public abstract class Car implements Movable{
     public int getEnginePower(){
         return enginePower;
     }
+    public Direction getDirection(){return direction;}
+    public String getModelname(){return modelName;}
+    public Color getColor(){return color;}
+    public void setColor(Color clr){color = clr;}
 
     public double getX() {return x;}
     public double getY() {return y;}
 
+    public void setX(double posX){
+        this.x = posX;
+    }
 
+    public void setY(double posY){
+        this.y = posY;
+    }
 
     public void avlasta(int length){
         if(length <= 60 && length >= 0){
@@ -50,16 +62,6 @@ public abstract class Car implements Movable{
             System.out.println("input number between 0 and 60");
         }
     }
-
-
-
-
-    public Direction getDirection() {return direction;}
-
-    public String getModelname(){return modelName;}
-
-    public Color getColor(){return color;}
-    public void setColor(Color clr){color = clr;}
 
     public boolean isMoving(){
         return currentSpeed > 0;
@@ -95,10 +97,6 @@ public abstract class Car implements Movable{
         }
     }
 
-    public double speedFactor(){
-        return 0;
-    }
-
     private void incrementSpeed(double amount){
         if(engineOn){
             currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
@@ -111,28 +109,24 @@ public abstract class Car implements Movable{
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
 
-    public void setTurboOn(){
-        turboOn = true;
-    }
-    public void setTurboOff(){
-        turboOn = false;
-    }
-
     @Override
     public void move() {
-        y += currentSpeed;
-        direction = Direction.forward;
+        if(direction == Direction.forward){
+            y += currentSpeed;
+        } else if (direction == Direction.right) {
+            x += currentSpeed;
+        } else if (direction == Direction.left) {
+            x -= currentSpeed;
+        }
     }
 
     @Override
     public void turnLeft(){
-        x -= currentSpeed;
         direction = Direction.left;
     }
 
     @Override
     public void turnRight(){
-        x += currentSpeed;
         direction = Direction.right;
     }
 

@@ -18,8 +18,9 @@ public final class Scania114L300 extends LastBil {
 
     public void lastaBil(Car car){
         if(!getFlak()){
-            car.
             carList.set(lastNr, car);
+            carList.get(lastNr).setX(getX());
+            carList.get(lastNr).setY(getY());
             lastNr++;
         }
     }
@@ -30,5 +31,15 @@ public final class Scania114L300 extends LastBil {
             carList.remove(lastNr);
             lastNr--;
         }
+    }
+
+    @Override
+    public double speedFactor() {
+        return 0;
+    }
+
+    @Override
+    public void move(){
+
     }
 }
