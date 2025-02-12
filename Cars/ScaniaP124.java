@@ -6,7 +6,6 @@ public final class ScaniaP124 extends LastBil {
     private double flakVinkel;
     public ScaniaP124() {
         super(2, 310, Color.GREEN, "Cars.ScaniaP124", 30, 0, Direction.forward, true);
-
     }
 
     @Override

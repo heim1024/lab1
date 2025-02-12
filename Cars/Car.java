@@ -13,6 +13,7 @@ public abstract class Car implements Movable{
     public double x, y; // Position coordinates
     private Color color; // Color of the Cars.car
     private Direction direction; // Direction the car is facing
+    private boolean loadable;
 
     public abstract double speedFactor();
 
@@ -20,8 +21,7 @@ public abstract class Car implements Movable{
         forward, right, left
     }
 
-
-    public Car(int nrDoors, int enginePower, Color color, String modelName, double x, double y, Direction startDir){
+    public Car(int nrDoors, int enginePower, Color color, String modelName, double x, double y, Direction startDir, boolean loadable){
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
@@ -30,6 +30,7 @@ public abstract class Car implements Movable{
         this.direction = startDir;
         this.x = x;
         this.y = y;
+        this.loadable = loadable;
     }
 
     public int getNrDoors(){
@@ -45,6 +46,8 @@ public abstract class Car implements Movable{
 
     public double getX() {return x;}
     public double getY() {return y;}
+
+    public boolean getLoadable(){return loadable;}
 
     public void setX(double posX){
         this.x = posX;

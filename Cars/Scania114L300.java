@@ -10,26 +10,29 @@ public final class Scania114L300 extends LastBil {
 
     }
 
-
     private int lastNr = 0;
-    public ArrayList<Car> carList = new ArrayList<>(5);
-
-
+    private ArrayList<Car> lastList = new ArrayList<>(10);
 
     public void lastaBil(Car car){
-        if(!getFlak()){
-            carList.set(lastNr, car);
-            carList.get(lastNr).setX(getX());
-            carList.get(lastNr).setY(getY());
+        if(!getFlak() && car.getLoadable()){
+            lastList.add(lastNr, car);
+            lastList.get(lastNr).setX(getX());
+            lastList.get(lastNr).setY(getY());
             lastNr++;
+        }
+        else {
+            System.out.println("unable to lasta");
         }
     }
 
     public void lastaAvBil(){
         if(!getFlak()){
-            carList.get(lastNr).avlasta(10 * lastNr);
-            carList.remove(lastNr);
+            lastList.get(lastNr).avlasta(10 * lastNr);
+            lastList.remove(lastNr);
             lastNr--;
+        }
+        else {
+            System.out.println("unable to lasta av");
         }
     }
 
@@ -40,6 +43,10 @@ public final class Scania114L300 extends LastBil {
 
     @Override
     public void move(){
-
+        super.move();
+        for (Car car : lastList) {
+            car.setX(getX());
+            car.setY(getY());
+        }
     }
 }

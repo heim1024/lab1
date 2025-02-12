@@ -8,10 +8,18 @@ import static org.junit.Assert.*;
 public class TestCars {
     public Volvo240 vovvo;
     public Saab95 saab;
+    public Workshop<Volvo240> volvoWorkShop;
+    public Workshop<Car> workshop;
+    public ScaniaP124 scaniaP124;
+    public Scania114L300 scania114L300;
     @Before
     public void setUp(){
         vovvo = new Volvo240();
         saab = new Saab95();
+        volvoWorkShop = new Workshop<Volvo240>(10);
+        workshop = new Workshop<>(10);
+        scaniaP124 = new ScaniaP124();
+        scania114L300 = new Scania114L300();
     }
 
     @Test
@@ -92,6 +100,25 @@ public class TestCars {
         assertEquals(1.25, vovvo.speedFactor(), 0.0);
         saab.setTurboOn();
         assertEquals(1.625, saab.speedFactor(), 0.0);
+    }
+
+    @Test
+    public void parkTest(){
+        volvoWorkShop.park(vovvo);
+        workshop.park(saab);
+        workshop.park(vovvo);
+    }
+
+    @Test
+    public void flakTest(){
+        scaniaP124.setFlakVinkel(50);
+    }
+
+    @Test
+    public void lastTest(){
+        scania114L300.setFlak(false);
+        scania114L300.lastaBil(vovvo);
+        scania114L300.lastaBil(scaniaP124);
     }
 
 }
