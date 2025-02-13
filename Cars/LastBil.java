@@ -14,12 +14,7 @@ public abstract class LastBil extends Car{
     }
     public void setFlak(boolean flak){
         if(!isMoving()){
-            if(flak){
-                flakUp = true;
-            }
-            else{
-                flakUp = false;
-            }
+            flakUp = flak;
         }
         else{
             System.out.println("stanna innan du justerar flaket!");

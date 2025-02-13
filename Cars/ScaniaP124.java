@@ -24,7 +24,7 @@ public final class ScaniaP124 extends LastBil {
 
     @Override
     public double speedFactor() {
-        return 0;
+        return getEnginePower() * 0.006;
     }
 
     public void move(){
